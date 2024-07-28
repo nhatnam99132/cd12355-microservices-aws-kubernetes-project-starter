@@ -8,7 +8,7 @@ phases:
       - echo IMAGE_REPO_NAME=$IMAGE_REPO_NAME
       - echo CODEBUILD_BUILD_NUMBER=$CODEBUILD_BUILD_NUMBER
       - echo Logging into ECR
-      # - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - git clone https://github.com/nhatnam99132/cd12355-microservices-aws-kubernetes-project-starter.git
   build:
     commands:
