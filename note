@@ -1,0 +1,21 @@
+aws configure
+aws sts get-caller-identity
+aws eks --region us-east-1 update-kubeconfig --name my-cluster
+kubectl config current-context
+
+kubectl apply -f pv.yaml
+kubectl apply -f pvc.yaml
+kubectl apply -f postgresql-deployment.yaml
+
+kubectl get pods
+kubectl exec -it pod-id -- bash
+kubectl apply -f postgresql-service.yaml
+kubectl port-forward service/postgresql-service 5433:5432
+
+psql -h 127.0.0.1 -d mydatabase -U myuser -p 5433 -f 1_create_tables.sql
+
+kubectl apply -f configmap.yaml
+kubectl apply -f secret.yaml
+kubectl apply -f deployment.yaml
+
+kubectl get svc
