@@ -19,3 +19,4 @@ kubectl apply -f secret.yaml
 kubectl apply -f deployment.yaml
 
 kubectl get svc
+kubectl describe deployments analytics-api

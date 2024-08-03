@@ -5,5 +5,5 @@ metadata:
 data:
   DB_PORT: "5432"
   DB_NAME: "mydatabase"
-  DB_HOST: "10.100.142.219"
+  DB_HOST: "10.100.81.86"
   DB_USERNAME: "myuser"

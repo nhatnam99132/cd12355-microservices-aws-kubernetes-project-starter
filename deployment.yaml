@@ -1,37 +1,39 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: coworking
+  name: analytics-api
 spec:
   type: LoadBalancer
   selector:
-    service: coworking
+    service: analytics-api
   ports:
   - name: "5153"
     protocol: TCP
     port: 5153
-    targetPort: 5153
+    targetPort: 5000
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coworking
+  name: analytics-api
   labels:
-    name: coworking
+    service: analytics-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: coworking
+      service: analytics-api
   template:
     metadata:
       labels:
-        service: coworking
+        service: analytics-api
     spec:
       containers:
-      - name: coworking
+      - name: analytics-api
         image: 129006319628.dkr.ecr.us-east-1.amazonaws.com/coworking:18
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /health_check
@@ -45,12 +47,8 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 5
         envFrom:
-        - configMapRef:
-            name: dbconfigmap
-        env:
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
+          - secretRef:
               name: dbsecret
-              key: DB_PASSWORD
+          - configMapRef:
+              name: dbconfigmap
       restartPolicy: Always
